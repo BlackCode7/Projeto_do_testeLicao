@@ -1,7 +1,7 @@
-<template>
-  <div class="container">
-    <button type="button" class="btn btn-primary">{{ msg }}</button>
-  </div>
+<template> 
+  <div id="app"> 
+    <router-view/> 
+  </div> 
 </template>
 
 <style>

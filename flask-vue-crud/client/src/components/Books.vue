@@ -4,6 +4,7 @@
       <div class="col-sm-10">
         <h1>Books</h1>
         <hr><br><br>
+        <alert :message=message v-if="showMessage"></alert>
         <button type="button" class="btn btn-success btn-sm" v-b-modal.book-modal>Add Book</button>
         <br><br>
         <table class="table table-hover">
@@ -25,7 +26,8 @@
               </td>
               <td>
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-warning btn-sm">Update</button>
+                  <button type="button" class="btn btn-warning btn-sm" v-b-modal.book-update-modal
+                  @click="editBook(book)">Update</button>
                   <button type="button" class="btn btn-danger btn-sm">Delete</button>
                 </div>
               </td>
@@ -34,11 +36,12 @@
         </table>
       </div>
     </div>
-<!--#####################################################-->
+
+<!--########################################################-->
     <b-modal ref="addBookModal"
-      id="book-modal"
-      title="Add a new book"
-      hide-footer>
+            id="book-modal"
+            title="Add a new book"
+            hide-footer>
       <b-form @submit="onSubmit" @reset="onReset" class="w-100">
       <b-form-group id="form-title-group"
                     label="Title:"
@@ -65,16 +68,56 @@
             <b-form-checkbox value="true">Read?</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
+        <b-button-group>
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
-        </b-form>
+        </b-button-group>
+      </b-form>
     </b-modal>
-<!--#####################################################-->
+<!--########################################################-->
+    <b-modal ref="editBookModal"
+            id="book-update-modal"
+            title="Update"
+            hide-footer>
+      <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
+      <b-form-group id="form-title-edit-group"
+                    label="Title:"
+                    label-for="form-title-edit-input">
+          <b-form-input id="form-title-edit-input"
+                        type="text"
+                        v-model="editForm.title"
+                        required
+                        placeholder="Enter title">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group id="form-author-edit-group"
+                      label="Author:"
+                      label-for="form-author-edit-input">
+            <b-form-input id="form-author-edit-input"
+                          type="text"
+                          v-model="editForm.author"
+                          required
+                          placeholder="Enter author">
+            </b-form-input>
+          </b-form-group>
+        <b-form-group id="form-read-edit-group">
+          <b-form-checkbox-group v-model="editForm.read" id="form-checks">
+            <b-form-checkbox value="true">Read?</b-form-checkbox>
+          </b-form-checkbox-group>
+        </b-form-group>
+        <b-button-group>
+          <b-button type="submit" variant="primary">Update</b-button>
+          <b-button type="reset" variant="danger">Cancel</b-button>
+        </b-button-group>
+      </b-form>
+    </b-modal>
+<!--########################################################-->
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Alert from './Alert.vue';
 
 export default {
   data() {
@@ -85,9 +128,28 @@ export default {
         author: '',
         read: [],
       },
+      message: '',
+      showMessage: false,
     };
   },
+
+  editForm: {
+    id: '',
+    title: '',
+    author: '',
+    read: [],
+  },
+
+  message: '',
+  components: {
+    alert: Alert,
+  },
   methods: {
+
+    editBook(book) {
+      this.editForm = book;
+    },
+
     getBooks() {
       const path = 'http://localhost:5000/books';
       axios.get(path)
@@ -104,6 +166,8 @@ export default {
       axios.post(path, payload)
         .then(() => {
           this.getBooks();
+          this.message = 'Book added!';
+          this.showMessage = true;
         })
         .catch((error) => {
           // eslint-disable-next-line

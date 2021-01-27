@@ -63,7 +63,6 @@ def all_books():
     if request.method == 'POST':
         post_data = request.get_json()
         BOOKS.append({
-            'id': uuid.uuid4().hex,
             'title': post_data.get('title'),
             'author': post_data.get('author'),
             'read': post_data.get('read')

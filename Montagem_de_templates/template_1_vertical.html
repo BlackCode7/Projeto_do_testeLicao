@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Menu Dropdown - Linha de Código</title>
+        <script type="text/javascript">
+        startList = function(){
+            if (document.all&&document.getElementById) {
+                navRoot = document.getElementById("menuDropDown");
+                for (i=0; i<navRoot.childNodes.length; i++) {
+                    node = navRoot.childNodes[i];
+                    if (node.nodeName=="LI"){
+                        node.onMouseOver=function(){
+                            this.className+=" over";
+                        }
+                        node.onMouseOver=function() {
+                            this.className = this.className.replace
+                            (" over", "");
+                        };
+                    }
+                }              
+            }
+        }
+        window.onload = startList;
+        </script>
+    </head>
+    <body>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">O que fazemos?</a>
+                <ul>
+                    <li><a href="#">Web Design</a></li>
+                    <li><a href="#">Hospedagem</a></li>
+                    <li><a href="#">SEO</a></li>
+                    <li><a href="#">Sistemas</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </body>
+
+</html>

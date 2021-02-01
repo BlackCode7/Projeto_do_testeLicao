@@ -1,6 +1,17 @@
 <template>
   <!--
   https://www.youtube.com/watch?v=YmJzRpMFdDY
+  https://developer.mozilla.org/pt-BR/docs/DragDrop/Drag_and_Drop
+  http://blog.sw9.com.br/2018/11/20/drag-e-drop-com-html5-aula-1-apresentacao-e-feature-detection-sw9/
+  https://www.youtube.com/watch?v=6wn8hpUcEcM
+  https://www.youtube.com/results?search_query=sistema+de+cadastro+crud+com+java+web
+
+  menu vertical
+  https://www.devmedia.com.br/criando-um-menu-vertical-dropdown-com-css-e-html/37207
+
+  Selenium
+  https://www.selenium.dev/documentation/pt-br/webdriver/browser_manipulation/
+
   tutorial do youtube para aprender parada no minuto 33:50
   -->
   <div id="app">
